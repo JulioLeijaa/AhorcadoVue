@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Juego Del Ahorcado</title>
+</head>
+
+<body>
+    <div id="app">
+        <div class="container">
+            <div class="header text-center">
+                <h1>{{ titulo | uppercase }}</h1>
+                <hr>
+            </div>
+
+            <div class="ahorcado text-center">
+                <textarea v-model="textarea_ahorcado" cols="20" rows="5"></textarea>
+            </div>
+            <div class="palabra text-center">
+                <h3>Adivina la palabra:</h3>
+                <div class="row">
+                    <div v-for="(palabra, index) in palabras" :key="index">
+                        <input class="col" type="text">
+                    </div>
+                </div>
+                <p>{{ palabraAleatoria }}</p>
+                <!-- <p>{{ palabraPorLetra(palabraAleatoria) }}</p> -->
+                <button v-on:click="restarOportunidades" class="btn btn-outline-primary">Intentar</button>
+                <p>{{ oportunidades }}</p>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+
+    <script>
+        var app = new Vue({
+            el: '#app',
+            data: {
+                titulo: '¡juego del ahorcado!',
+                palabras: ['carro', 'perro', 'nombre', 'cesar', 'carne', 'elefante', 'manzana', 'clase', 'atributo', 'objeto'],
+                letras_palabra: [],
+                oportunidades: 9,
+                textarea_ahorcado: ''
+            },
+            filters: {
+                uppercase: function(value) {
+                    value = value.toUpperCase();
+                    return value;
+                }
+            },
+            computed: {
+                palabraAleatoria: function() {
+                    var index = Math.floor(Math.random() * 10);
+                    return this.palabras[index];
+                },
+                palabraPorLetra: function(palabra) {
+                    // var array_string = [];
+                    // for (let index = 0; index < array.length; index++) {
+                    //     array_string.push(palabra[i].split(""));
+                    // }
+
+                    return palabra.split(" ");
+                }
+            },
+            methods: {
+                restarOportunidades: function() {
+                    this.oportunidades = this.oportunidades - 1;
+                },
+                dibujarAhorcado: function() {
+                    switch (this.oportunidades) {
+                        case 9:
+                            this.textarea_ahorcado = 'tienes 9 oportunidades';
+                            break;
+                        case 8:
+                            break;
+                        case 7:
+                            break;
+                        case 6:
+                            break;
+                        case 5:
+                            break;
+                        case 4:
+                            break;
+                        case 3:
+                            break;
+                        case 2:
+                            break;
+                        case 1:
+                            break;
+                        case 0:
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            },
+            created() {
+
+            },
+        })
+    </script>
+</body>
+
+</html>
